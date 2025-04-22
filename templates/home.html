@@ -1,84 +1,302 @@
-{% load static %}
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<style>
-
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f9;
-        color: #333;
-        text-align: center;
-        padding: 50px;
-        background-image:url("https://wallpapersok.com/images/thumbnail/whatsapp-chat-letters-and-symbols-frohqsll7jrmil09.jpg");
-    }
-    
-
-    h1 {
-        font-family: Verdana, sans-serif;
-        color: rgb(36, 145, 83);
-    }
-
-    sub {
-        font-size: 50%;
-    }
-
-    a {
-        display: block;
-        font-size: 200%;
-        color: #2980b9;
-        text-decoration: none;
-        margin: 15px 0;
-        transition: color 0.3s ease;
-    }
-
-    a:hover {
-        color: #1c5980;
-    }
-
-    hr {
-        margin: 30px 0;
-        border: 0;
-        border-top: 1px solid #ccc;
-    }
-
-    h3 {
-        text-align: right;
-    }
-
-    h3 a {
-        font-size: 120%;
-        color: #2980b9;
-        text-decoration: none;
-        transition: color 0.3s ease;
-    }
-
-    h3 a:hover {
-        color: #1c5980;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyMaster - A Website for Better Study</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f5ff;
+            color: #333;
+            text-align: center;
+        }
+        
+        /* Navigation Bar Styles */
+        .navbar {
+            list-style-type: none;
+            margin: 0 0 20px 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #dddddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar li {
+            float: left;
+        }
+        
+        .navbar li a {
+            display: block;
+            color: #333;
+            text-align: center;
+            padding: 12px 16px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .navbar li a:hover {
+            background-color: #b4c7e7;
+            color: #da3c03;
+        }
+        
+        .navbar li a img {
+            height: 24px;
+            vertical-align: middle;
+        }
+        
+        h1 {
+            font-family: Verdana, sans-serif;
+            color: rgb(36, 145, 83);
+            text-align: center;
+        }
+        
+        sub {
+            font-size: 50%;
+        }
+        
+        .content {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        
+        .main-links {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+        }
+        
+        .main-links a {
+            font-size: 24px;
+            color: #2980b9;
+            text-decoration: none;
+            margin: 15px 0;
+            transition: color 0.3s ease;
+            padding: 10px 20px;
+            border-radius: 4px;
+            background-color: #f5f9ff;
+            width: 80%;
+        }
+        
+        .main-links a:hover {
+            color: #1c5980;
+            background-color: #e6efff;
+        }
+        
+        hr {
+            margin: 30px 0;
+            border: 0;
+            border-top: 1px solid #ccc;
+        }
+        
+        .about-link {
+            text-align: right;
+        }
+        
+        .about-link a {
+            font-size: 120%;
+            color: #2980b9;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .about-link a:hover {
+            color: #1c5980;
+        }
+        
+        /* Progress bar styles */
+        .progress-container {
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            background-color: #e0e8ff;
+            border-radius: 4px;
+            height: 25px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: #1a5fb4;
+            width: 0%;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .timer-container {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
-    <div class ="bg">
-        <h1>StudyMaster<sub>- A Website for Better Study</sub></h1>
-
+    <!-- Navigation Bar -->
+    <ul class="navbar">
+        <li><a href="{% url 'home' %}"><img src="logo.png" alt="Logo">Home</a></li>
+        <li><a href="{% url 'ss' %}">Study Strategies</a></li>
+        <li><a href="{% url 'learn' %}">Learn</a></li>
+        <li><a href="{% url 'Timer' %}">Timer</a></li>
+        <li><a href="{% url 'Progress' %}">Progress</a></li>
+        <li><a href="{% url 'about' %}">About Us</a></li>
+    </ul>
+    
+    <h1>StudyMaster<sub>- A Website for Better Study</sub></h1>
+    
+    <div class="content">
+        <div class="timer-container">
+            <div>Time spent today: <span id="timeSpent">0:00:00</span></div>
+        </div>
+        
+        <div class="progress-container">
+            <h2>Your Progress</h2>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill">0%</div>
+            </div>
+        </div>
+        
+        <div class="main-links">
+            <a href="{% url 'ss' %}">Study Strategies</a>
+            <a href="{% url 'learn' %}">Learn</a>
+            <a href="{% url 'Timer' %}">Timer</a>
+            <a href="{% url 'Progress' %}">Progress</a>
+        </div>
+        
         <hr>
         
-        <a href="{% url 'ss' %}">Study Strategies</a>
-        
-        <a href="{% url 'learn' %}">Learn</a>
-        
-        <a href="{% url 'Timer' %}">Timer</a>
-        
-        <a href="{% url 'Progress' %}">Progress</a>
-
-
-        <hr>
-        
-        <h3>
+        <div class="about-link">
             <a href="{% url 'about' %}">About Us</a>
-        </h3>
-    </div>    
+        </div>
+    </div>
+
+    <script>
+        // TIMER CODE - This code must be included on all pages of your website
+        // -----------------------------------------------------------------------
+        // TIME TRACKING - START
+        
+        // Consistent key for website-wide timer
+        const WEBSITE_TIMER_KEY = 'websiteTimerData';
+        
+        // Time tracking variables
+        let startTime = new Date();
+        let totalSeconds = 0;
+        
+        // Initialize timer function
+        function initTimer() {
+            const today = new Date().toLocaleDateString();
+            let savedTimerData = JSON.parse(localStorage.getItem(WEBSITE_TIMER_KEY) || '{}');
+            
+            // Check if we have data for today
+            if (savedTimerData.date === today) {
+                totalSeconds = savedTimerData.timeSpent || 0;
+            } else {
+                // New day, reset timer
+                savedTimerData = {
+                    date: today,
+                    timeSpent: 0
+                };
+                localStorage.setItem(WEBSITE_TIMER_KEY, JSON.stringify(savedTimerData));
+            }
+            
+            // Update display immediately
+            updateTimerDisplay();
+            
+            // Start the timer
+            setInterval(updateTimer, 1000);
+        }
+        
+        // Update timer function
+        function updateTimer() {
+            const now = new Date();
+            const diffSeconds = Math.floor((now - startTime) / 1000);
+            totalSeconds += diffSeconds;
+            startTime = now;
+            
+            // Save to localStorage
+            const today = new Date().toLocaleDateString();
+            const savedTimerData = JSON.parse(localStorage.getItem(WEBSITE_TIMER_KEY) || '{}');
+            savedTimerData.date = today;
+            savedTimerData.timeSpent = totalSeconds;
+            localStorage.setItem(WEBSITE_TIMER_KEY, JSON.stringify(savedTimerData));
+            
+            // Update display
+            updateTimerDisplay();
+        }
+        
+        // Update the display
+        function updateTimerDisplay() {
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+            
+            const formattedTime = `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Update the timer display
+            const timerElement = document.getElementById('timeSpent');
+            if (timerElement) {
+                timerElement.textContent = formattedTime;
+            }
+        }
+        
+        // Handle visibility change
+        document.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'hidden') {
+                // User left the page - save the time
+                updateTimer();
+            } else {
+                // User returned - reset start time
+                startTime = new Date();
+            }
+        });
+        
+        // Save time when leaving the page
+        window.addEventListener('beforeunload', function() {
+            updateTimer();
+        });
+        
+        // Initialize the timer when the page loads
+        document.addEventListener('DOMContentLoaded', initTimer);
+        
+        // TIME TRACKING - END
+        // -----------------------------------------------------------------------
+        
+        // Get progress data from localStorage
+        function loadProgress() {
+            const TASK_STORAGE_KEY = 'taskTrackerData';
+            const savedData = JSON.parse(localStorage.getItem(TASK_STORAGE_KEY) || '{}');
+            
+            if (savedData.tasks && savedData.tasks.length > 0) {
+                const tasks = savedData.tasks;
+                const completedCount = tasks.filter(task => task.completed).length;
+                const progressPercentage = Math.round((completedCount / tasks.length) * 100);
+                
+                document.getElementById('progressFill').style.width = `${progressPercentage}%`;
+                document.getElementById('progressFill').textContent = `${progressPercentage}%`;
+            } else {
+                document.getElementById('progressFill').style.width = '0%';
+                document.getElementById('progressFill').textContent = '0%';
+            }
+        }
+        
+        // Initialize progress when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProgress();
+        });
+    </script>
 </body>
 </html>
-<script src="{% static 'site-timer.js' %}"></script>
