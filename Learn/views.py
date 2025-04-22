@@ -3,8 +3,8 @@ from django.http import HttpResponse
 import requests
 
 
-API_KEY = open(r"C:\Users\Madhav\Downloads\venv (2)\venv\temp\Learn\API_KEY").read().strip()
-SEARCH_ENGINE_ID = open(r"C:\Users\Madhav\Downloads\venv (2)\venv\temp\Learn\Search_ID").read().strip()
+API_KEY = os.environ.get('API_KEY')
+SEARCH_ENGINE_ID = os.environ.get('SECRET_ENGINE_ID')
 url = 'https://www.googleapis.com/customsearch/v1'
 
 def fetch_results(search_query, site_filter=None):
