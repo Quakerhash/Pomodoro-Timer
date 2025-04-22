@@ -190,13 +190,13 @@
     <!-- Navigation Bar -->
     <nav>
         <ul>
-            <li><a href="index.html">
+            <li><a href="{% url 'home' %}">
                 <img src="images/logo.png" alt="Logo">
             </a></li>
-            <li><a href="study.html">Study Strategies</a></li>
-            <li><a href="learn.html">Learn</a></li>
-            <li><a href="timer.html">Timer</a></li>
-            <li><a href="about.html">About Us</a></li>
+            <li><a href="{% url 'ss' %}">Study Strategies</a></li>
+            <li><a href="{% url 'learn' %}">Learn</a></li>
+            <li><a href="{% url 'Timer' %}">Timer</a></li>
+            <li><a href="{% url 'about' %}">About Us</a></li>
         </ul>
     </nav>
 
