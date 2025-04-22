@@ -12,6 +12,36 @@
             padding: 20px;
             background-color: #f0f5ff;
         }
+        /* Navigation Bar Styles */
+        .navbar {
+            list-style-type: none;
+            margin: 0 0 20px 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #dddddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .navbar li {
+            float: left;
+        }
+        .navbar li a {
+            display: block;
+            color: #333;
+            text-align: center;
+            padding: 12px 16px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .navbar li a:hover {
+            background-color: #b4c7e7;
+            color: #da3c03;
+        }
+        .navbar li a img {
+            height: 24px;
+            vertical-align: middle;
+        }
+        /* Task Tracker Styles */
         .container {
             background-color: white;
             border-radius: 8px;
@@ -132,20 +162,18 @@
             font-size: 14px;
             color: #4d6484;
         }
-        a.back-link {
-        font-size: 200%;
-        text-align: right;
-        }
-        a:hover {
-        text-decoration: none;
-        color: #da3c03;
-        }
     </style>
 </head>
 <body>
-    <h6 style="text-align: right;">
-        <a href="index.html" class="back-link">back</a>
-    </h6>
+    <!-- Navigation Bar -->
+    <ul class="navbar">
+        <li><a href="index.html"><img src="logo.png" alt="Logo">Home</a></li>
+        <li><a href="study.html">Study Strategies</a></li>
+        <li><a href="learn.html">Learn</a></li>
+        <li><a href="timer.html">Timer</a></li>
+        <li><a href="about.html">About Us</a></li>
+    </ul>
+    
     <div class="container">
         <h1>Task Tracker</h1>
         
