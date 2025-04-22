@@ -4,8 +4,8 @@ import requests
 import os
 
 
-API_KEY = os.environ.get('API_KEY')
-SEARCH_ENGINE_ID = os.environ.get('SECRET_ENGINE_ID')
+API_KEY = os.environ.get(API_KEY)
+SEARCH_ENGINE_ID = os.environ.get(SECRET_ENGINE_ID)
 url = 'https://www.googleapis.com/customsearch/v1'
 
 def fetch_results(search_query, site_filter=None):
