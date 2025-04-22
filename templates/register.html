@@ -1,0 +1,26 @@
+<html>
+<head>
+<style>
+ body{
+	margin:5px;
+	align-items: center;
+	justify-content: center;
+ }
+</style>
+</head>
+<body class="body">
+		<label for="chk" aria-hidden="true">Sign up</label>
+		<form method="POST" action="{% url 'register' %}">
+						{% csrf_token %}
+						<input type="text" name="username" placeholder="Username" required=""><br>
+						<input type="email" name="email" placeholder="Email" required=""><br>
+						<input type="password" name="password1" placeholder="Password" minlength="8" required=""><br>
+						<input type="password" name="password2" placeholder="Confirm Password" minlength="8" required=""><br>
+						
+						<button>Sign up </a></button>
+						
+
+		</form>
+		<a href="login/">Already have a account</a>
+</body>
+</html>

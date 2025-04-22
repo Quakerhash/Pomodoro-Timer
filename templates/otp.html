@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OTP Verification</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    html, body {
+      display: grid;
+      height: 100%;
+      width: 100%;
+      place-items: center;
+      background: -webkit-linear-gradient(left, #003366,#004080,#0059b3, #0073e6);
+    }
+    .wrapper {
+      max-width: 390px;
+      width: 100%;
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0px 15px 20px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .wrapper .title {
+      font-size: 30px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .field {
+      height: 50px;
+      width: 100%;
+      margin: 20px 0;
+    }
+    .field input {
+      height: 100%;
+      width: 100%;
+      padding-left: 15px;
+      border-radius: 15px;
+      border: 1px solid lightgrey;
+      border-bottom-width: 2px;
+      font-size: 17px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+    .field input:focus {
+      border-color: #1a75ff;
+    }
+    .btn {
+      height: 50px;
+      width: 100%;
+      border-radius: 15px;
+      position: relative;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+    .btn-layer {
+      height: 100%;
+      width: 300%;
+      position: absolute;
+      left: -100%;
+      background: -webkit-linear-gradient(right, #003366, #004080, #0059b3, #0073e6);
+      border-radius: 15px;
+      transition: all 0.4s ease;
+    }
+    .btn:hover .btn-layer {
+      left: 0;
+    }
+    .btn input[type="submit"], .btn button {
+      height: 100%;
+      width: 100%;
+      z-index: 1;
+      position: relative;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 20px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .resend-btn {
+      background: none;
+      border: none;
+      color: #1a75ff;
+      font-size: 16px;
+      margin-top: 15px;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="title">OTP Verification</div>
+
+    <!-- OTP Form -->
+    <form method="POST" action="{% url 'otp' %}">
+      {% csrf_token %}
+      <div class="field">
+        <input type="number" name="otp" placeholder="Enter The OTP" required>
+      </div>
+      <div class="btn">
+        <div class="btn-layer"></div>
+        <input type="submit" value="Submit">
+      </div>
+    </form>
+
+    <!-- Resend OTP Form -->
+    <form method="POST" action="{% url 'rotp' %}">
+      {% csrf_token %}
+	  <span id="c"></span><br>
+      <button type="submit" id="resendBtn" onclick="toggle()" class="resend-btn">Resend OTP</button>
+    </form>
+  </div>
+</body>
+<script>
+	let i = 0;
+	let countdown; 
+  
+	function toggle() {
+	  clearInterval(countdown); 
+	  i = 30;
+	  document.getElementById("c").innerHTML = i;
+	  document.getElementById("resendBtn").disabled = true;
+  
+	  countdown = setInterval(function () {
+		i--;
+		if (i <= 0) {
+		  clearInterval(countdown);
+		  document.getElementById("resendBtn").disabled = false;
+		  document.getElementById("c").innerHTML = 0;
+		} else {
+		  document.getElementById("c").innerHTML ="Try again after " + i;
+		}
+	  }, 1000);
+	}
+</script>
+</html>

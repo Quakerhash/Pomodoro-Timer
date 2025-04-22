@@ -1,0 +1,82 @@
+<html>
+<head>
+<style>
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        color: #333;
+        text-align: center;
+        padding: 50px;
+        background-image:url("https://wallpaperaccess.com/full/1567679.jpg");
+    }
+    
+
+    h1 {
+        font-family: Verdana, sans-serif;
+        color: rgb(36, 145, 83);
+    }
+
+    sub {
+        font-size: 50%;
+    }
+
+    a {
+        display: block;
+        font-size: 200%;
+        color: #2980b9;
+        text-decoration: none;
+        margin: 15px 0;
+        transition: color 0.3s ease;
+    }
+
+    a:hover {
+        color: #1c5980;
+    }
+
+    hr {
+        margin: 30px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    h3 {
+        text-align: right;
+    }
+
+    h3 a {
+        font-size: 120%;
+        color: #2980b9;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    h3 a:hover {
+        color: #1c5980;
+    }
+</style>
+</head>
+<body>
+    <div class ="bg">
+        <h1>StudyMaster<sub>- A Website for Better Study</sub></h1>
+
+        <hr>
+        
+        <a href="{% url 'ss' %}">Study Strategies</a>
+        
+        <a href="{% url 'learn' %}">Learn</a>
+        
+        <a href="{% url 'Timer' %}">Timer</a>
+        
+        <a href="{% url 'Progress' %}">Progess</a>
+
+
+        <hr>
+        
+        <h3>
+            <a href="{% url 'about' %}">About Us</a>
+        </h3>
+    </div>    
+</body>
+</html>
+<script src="C:\Users\adithya\Desktop\venv\temp\templates\site-timer.js"></script>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About Us - StudyMaster</title>
+    <style>
+        body {
+            background-color: rgb(41, 41, 41);
+            color: beige;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        a:link, a:visited {
+            color: rgb(254, 254, 254);
+            text-decoration: none;
+        }
+        
+        a:hover {
+            color: rgb(4, 255, 0);
+            text-decoration: underline;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #333;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        h2, h3 {
+            color: #ffcc00;
+        }
+        
+        .back-link {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+
+        hr {
+            border: 1px solid #555;
+        }
+        
+        p {
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="back-link">
+            <a href="{% url 'home' %}" style="font-size: 1.5em;">&larr; Back</a>
+        </div>
+
+        <h2>About Us</h2>
+        <p>Welcome to <strong>StudyMaster</strong>, where we strive to make learning efficient, engaging, and accessible for everyone. Our dedicated team works tirelessly to provide top-notch educational resources and support to help you achieve your academic goals.</p>
+        
+        <h3>Meet the Team</h3>
+        <ul>
+            <li><strong>Adithya</strong></li>
+            <li><strong>Lia</strong></li>
+            <li><strong>Madhav</strong></li>
+            <li><strong>Mariam</strong></li>
+            <li><strong>Hisham</strong></li>
+        </ul>
+
+        <p>At StudyMaster, we’re committed to supporting your learning journey every step of the way. Join us and take your studies to the next level!</p>
+        
+        <hr>
+        
+        <p>If you'd like to tweak any details or add more information, please contact us at <strong>CET</strong>.</p>
+    </div>
+</body>
+</html>
+<script src="site-timer.js"></script>

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Tracker with Progress Bar</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f5ff;
+        }
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #1a5fb4;
+            text-align: center;
+        }
+        .timer-container {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        .progress-container {
+            margin-bottom: 30px;
+        }
+        .progress-bar {
+            width: 100%;
+            background-color: #e0e8ff;
+            border-radius: 4px;
+            height: 25px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background-color: #1a5fb4;
+            width: 0%;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        .task-input {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        #taskInput {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #b4c7e7;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #1a5fb4;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0b4a94;
+        }
+        #addTask {
+            margin-left: 10px;
+        }
+        .task-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .task-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background-color: #f5f9ff;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            border-left: 4px solid #3584e4;
+        }
+        .task-item.completed {
+            text-decoration: line-through;
+            opacity: 0.7;
+            border-left: 4px solid #99b9e8;
+        }
+        .task-checkbox {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+        }
+        .task-text {
+            flex-grow: 1;
+            font-size: 16px;
+        }
+        .delete-btn {
+            background-color: #3d83db;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .delete-btn:hover {
+            background-color: #1b64c2;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            background-color: #e6efff;
+            padding: 15px;
+            border-radius: 4px;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1a5fb4;
+        }
+        .stat-label {
+            font-size: 14px;
+            color: #4d6484;
+        }
+        a.back-link {
+        font-size: 200%;
+        text-align: right;
+        }
+        a:hover {
+        text-decoration: none;
+        color: #da3c03;
+        }
+    </style>
+</head>
+<body>
+    <h6 style="text-align: right;">
+        <a href="{% url 'home' %}" class="back-link">back</a>
+    </h6>
+    <div class="container">
+        <h1>Task Tracker</h1>
+        
+        <div class="timer-container">
+            <div>Time spent today: <span id="timeSpent">0:00:00</span></div>
+        </div>
+        
+        <div class="progress-container">
+            <h2>Progress</h2>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill">0%</div>
+            </div>
+        </div>
+        
+        <div class="task-input">
+            <input type="text" id="taskInput" placeholder="Enter a new task...">
+            <button id="addTask">Add Task</button>
+        </div>
+        
+        <ul class="task-list" id="taskList">
+            <!-- Tasks will be added here dynamically -->
+        </ul>
+        
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-value" id="totalTasks">0</div>
+                <div class="stat-label">Total Tasks</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="completedTasks">0</div>
+                <div class="stat-label">Completed</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="remainingTasks">0</div>
+                <div class="stat-label">Remaining</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // TIMER CODE - This code must be included on all pages of your website
+        // -----------------------------------------------------------------------
+        // TIME TRACKING - START
+        
+        // Consistent key for website-wide timer
+        const WEBSITE_TIMER_KEY = 'websiteTimerData';
+        
+        // Time tracking variables
+        let startTime = new Date();
+        let totalSeconds = 0;
+        
+        // Initialize timer function
+        function initTimer() {
+            const today = new Date().toLocaleDateString();
+            let savedTimerData = JSON.parse(localStorage.getItem(WEBSITE_TIMER_KEY) || '{}');
+            
+            // Check if we have data for today
+            if (savedTimerData.date === today) {
+                totalSeconds = savedTimerData.timeSpent || 0;
+            } else {
+                // New day, reset timer
+                savedTimerData = {
+                    date: today,
+                    timeSpent: 0
+                };
+                localStorage.setItem(WEBSITE_TIMER_KEY, JSON.stringify(savedTimerData));
+            }
+            
+            // Update display immediately
+            updateTimerDisplay();
+            
+            // Start the timer
+            setInterval(updateTimer, 1000);
+        }
+        
+        // Update timer function
+        function updateTimer() {
+            const now = new Date();
+            const diffSeconds = Math.floor((now - startTime) / 1000);
+            totalSeconds += diffSeconds;
+            startTime = now;
+            
+            // Save to localStorage
+            const today = new Date().toLocaleDateString();
+            const savedTimerData = JSON.parse(localStorage.getItem(WEBSITE_TIMER_KEY) || '{}');
+            savedTimerData.date = today;
+            savedTimerData.timeSpent = totalSeconds;
+            localStorage.setItem(WEBSITE_TIMER_KEY, JSON.stringify(savedTimerData));
+            
+            // Update display
+            updateTimerDisplay();
+        }
+        
+        // Update the display
+        function updateTimerDisplay() {
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+            
+            const formattedTime = `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Update the timer display
+            const timerElement = document.getElementById('timeSpent');
+            if (timerElement) {
+                timerElement.textContent = formattedTime;
+            }
+        }
+        
+        // Handle visibility change
+        document.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'hidden') {
+                // User left the page - save the time
+                updateTimer();
+            } else {
+                // User returned - reset start time
+                startTime = new Date();
+            }
+        });
+        
+        // Save time when leaving the page
+        window.addEventListener('beforeunload', function() {
+            updateTimer();
+        });
+        
+        // Initialize the timer when the page loads
+        document.addEventListener('DOMContentLoaded', initTimer);
+        
+        // TIME TRACKING - END
+        // -----------------------------------------------------------------------
+        
+        // TASK MANAGEMENT CODE - Only needed on the task tracker page
+        // -----------------------------------------------------------------------
+        
+        // Use a separate key for tasks
+        const TASK_STORAGE_KEY = 'taskTrackerData';
+        let tasks = [];
+        
+        // Load tasks from localStorage
+        function loadTasks() {
+            const savedData = JSON.parse(localStorage.getItem(TASK_STORAGE_KEY) || '{}');
+            if (savedData.tasks) {
+                tasks = savedData.tasks;
+                renderTasks();
+                updateProgress();
+            }
+        }
+        
+        // Save tasks to localStorage
+        function saveTasks() {
+            const savedData = JSON.parse(localStorage.getItem(TASK_STORAGE_KEY) || '{}');
+            savedData.tasks = tasks;
+            localStorage.setItem(TASK_STORAGE_KEY, JSON.stringify(savedData));
+        }
+        
+        // Add a new task
+        function addTask() {
+            const taskInput = document.getElementById('taskInput');
+            const taskText = taskInput.value.trim();
+            
+            if (taskText) {
+                tasks.push({
+                    id: Date.now(),
+                    text: taskText,
+                    completed: false
+                });
+                
+                taskInput.value = '';
+                saveTasks();
+                renderTasks();
+                updateProgress();
+            }
+        }
+        
+        // Toggle task completion status
+        function toggleTask(id) {
+            const taskIndex = tasks.findIndex(task => task.id === id);
+            if (taskIndex !== -1) {
+                tasks[taskIndex].completed = !tasks[taskIndex].completed;
+                saveTasks();
+                renderTasks();
+                updateProgress();
+            }
+        }
+        
+        // Delete a task
+        function deleteTask(id) {
+            tasks = tasks.filter(task => task.id !== id);
+            saveTasks();
+            renderTasks();
+            updateProgress();
+        }
+        
+        // Render all tasks in the list
+        function renderTasks() {
+            const taskList = document.getElementById('taskList');
+            taskList.innerHTML = '';
+            
+            tasks.forEach(task => {
+                const taskItem = document.createElement('li');
+                taskItem.className = `task-item ${task.completed ? 'completed' : ''}`;
+                
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.className = 'task-checkbox';
+                checkbox.checked = task.completed;
+                checkbox.addEventListener('change', () => toggleTask(task.id));
+                
+                const taskText = document.createElement('span');
+                taskText.className = 'task-text';
+                taskText.textContent = task.text;
+                
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'delete-btn';
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.addEventListener('click', () => deleteTask(task.id));
+                
+                taskItem.appendChild(checkbox);
+                taskItem.appendChild(taskText);
+                taskItem.appendChild(deleteBtn);
+                taskList.appendChild(taskItem);
+            });
+            
+            // Update stats
+            document.getElementById('totalTasks').textContent = tasks.length;
+            
+            const completedCount = tasks.filter(task => task.completed).length;
+            document.getElementById('completedTasks').textContent = completedCount;
+            
+            document.getElementById('remainingTasks').textContent = tasks.length - completedCount;
+        }
+        
+        // Update progress bar
+        function updateProgress() {
+            if (tasks.length === 0) {
+                document.getElementById('progressFill').style.width = '0%';
+                document.getElementById('progressFill').textContent = '0%';
+                return;
+            }
+            
+            const completedCount = tasks.filter(task => task.completed).length;
+            const progressPercentage = Math.round((completedCount / tasks.length) * 100);
+            
+            document.getElementById('progressFill').style.width = `${progressPercentage}%`;
+            document.getElementById('progressFill').textContent = `${progressPercentage}%`;
+        }
+        
+        // Event listeners for task management
+        document.getElementById('addTask').addEventListener('click', addTask);
+        document.getElementById('taskInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addTask();
+            }
+        });
+        
+        // Initialize tasks
+        document.addEventListener('DOMContentLoaded', loadTasks);
+    </script>
+</body>
+</html>
