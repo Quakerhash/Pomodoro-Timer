@@ -202,59 +202,33 @@
 
     <div class="content">
         <label for="chk" aria-hidden="true">LEARN</label>
-        <form id="searchForm">
+        <form method="POST" id="searchForm">
+            {% csrf_token %}
             <input type="text" name="Topic" id="topicInput" placeholder="Enter The Topic" required>
             <button type="submit">Submit</button>
         </form>
+        
 
         <div class="results-container" id="resultsContainer">
-            <!-- Results will be displayed here -->
+            {% if website_links %}
+        <h3>Website Links</h3>
+        <ul class="b">
+            {% for link in website_links %}
+                <li class="a"><a href="{{ link }}" target="_blank">{{ link }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if youtube_links %}
+        <h3>YouTube Video Links</h3>
+        <ul class="b">
+            {% for link in youtube_links %}
+                <li class="a "><a href="{{ link }}" target="_blank">{{ link }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
         </div>
     </div>
 
-    <script>
-        // Simple timer tracking functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            let startTime = new Date();
-            
-            // Track time spent on page
-            window.addEventListener('beforeunload', function() {
-                const timeSpent = Math.round((new Date() - startTime) / 1000);
-                console.log(`Time spent learning: ${timeSpent} seconds`);
-                
-                // For static GitHub Pages, we'll just log to console
-                // You could use localStorage to store this data if needed
-            });
-            
-            // Handle form submission for static site (no server-side processing)
-            document.getElementById('searchForm').addEventListener('submit', function(e) {
-                e.preventDefault(); // Prevent the form from submitting to a server
-                
-                const topic = document.getElementById('topicInput').value.trim();
-                
-                if (topic) {
-                    // For demo purposes, we'll show mock results
-                    // In a real implementation, you might use an API or pre-defined content
-                    const resultsContainer = document.getElementById('resultsContainer');
-                    
-                    // Create example results
-                    resultsContainer.innerHTML = `
-                        <h3>Website Links for "${topic}"</h3>
-                        <ul>
-                            <li><a href="https://en.wikipedia.org/wiki/${topic}" target="_blank">Wikipedia - ${topic}</a></li>
-                            <li><a href="https://www.khanacademy.org/search?page_search_query=${topic}" target="_blank">Khan Academy - ${topic}</a></li>
-                            <li><a href="https://www.britannica.com/search?query=${topic}" target="_blank">Encyclopedia Britannica - ${topic}</a></li>
-                        </ul>
-                        
-                        <h3>YouTube Video Links</h3>
-                        <ul>
-                            <li><a href="https://www.youtube.com/results?search_query=${topic}+tutorial" target="_blank">YouTube tutorials on ${topic}</a></li>
-                            <li><a href="https://www.youtube.com/results?search_query=${topic}+explained" target="_blank">${topic} explained on YouTube</a></li>
-                        </ul>
-                    `;
-                }
-            });
-        });
-    </script>
 </body>
 </html>
