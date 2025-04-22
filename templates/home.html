@@ -11,58 +11,29 @@
             margin: 0 auto;
             padding: 20px;
             background-color: #f0f5ff;
-            color: #333;
+            color: #c7c7c7;
             text-align: center;
-             background: -webkit-linear-gradient(left, #003366,#004080,#0059b3, #0073e6);
+            background-image: url('bg.jpg');
+            background-size: 500px 500px ;
         }
         
-        /* Navigation Bar Styles */
-        .navbar {
-            list-style-type: none;
-            margin: 0 0 20px 0;
-            padding: 0;
-            overflow: hidden;
-            background-color: #dddddd;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .navbar li {
-            float: left;
-        }
-        
-        .navbar li a {
-            display: block;
-            color: #333;
-            text-align: center;
-            padding: 12px 16px;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        
-        .navbar li a:hover {
-            background-color: #b4c7e7;
-            color: #da3c03;
-        }
-        
-        .navbar li a img {
-            height: 24px;
-            vertical-align: middle;
-        }
         
         h1 {
-            font-family: Verdana, sans-serif;
-            color: rgb(36, 145, 83);
+            
+            font-family:Impact, Haettenschweiler, 'Arial Narrow', sans-serif;
+            color: rgb(61, 83, 163);
             text-align: center;
+            font-size: 60px;
+            letter-spacing: 2px;
         }
         
         sub {
-            font-size: 50%;
+            font-size: 70%;
         }
         
         .content {
-            background-color: white;
-            border-radius: 8px;
+            background-color: rgba(57, 73, 132, 0.753);
+            border-radius: 50px;
             padding: 20px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             margin-top: 20px;
@@ -76,13 +47,13 @@
         }
         
         .main-links a {
-            font-size: 24px;
+            font-size: 28px;
             color: #2980b9;
             text-decoration: none;
             margin: 15px 0;
             transition: color 0.3s ease;
             padding: 10px 20px;
-            border-radius: 4px;
+            border-radius: 20px;
             background-color: #f5f9ff;
             width: 80%;
         }
@@ -104,13 +75,13 @@
         
         .about-link a {
             font-size: 120%;
-            color: #2980b9;
+            color: #c4e0f3;
             text-decoration: none;
             transition: color 0.3s ease;
         }
         
         .about-link a:hover {
-            color: #1c5980;
+            color: #00ffbf;
         }
         
         /* Progress bar styles */
@@ -123,7 +94,7 @@
             width: 100%;
             background-color: #e0e8ff;
             border-radius: 4px;
-            height: 25px;
+            height: 35px;
             overflow: hidden;
         }
         
@@ -142,13 +113,13 @@
         .timer-container {
             text-align: center;
             margin: 20px 0;
-            font-size: 18px;
+            font-size: 24px;
         }
     </style>
 </head>
 <body>
    
-    <h1>StudyMaster<sub>- A Website for Better Study</sub></h1>
+    <i><h1>StudyMaster<sub>- Your Study Companion</sub></h1></i>
     
     <div class="content">
         <div class="timer-container">
@@ -163,10 +134,10 @@
         </div>
         
         <div class="main-links">
-            <a href="{% url 'ss' %}">Study Strategies</a>
-            <a href="{% url 'learn' %}">Learn</a>
-            <a href="{% url 'Timer' %}">Timer</a>
-            <a href="{% url 'Progress' %}">Progress</a>
+            <a href="{% url 'ss' %}"><b>Study Strategies</b></a>
+            <a href="{% url 'learn' %}"><b>Learn</b></a>
+            <a href="{% url 'Timer' %}"><b>Timer</b></a>
+            <a href="{% url 'Progress' %}"><b>Progress</b></a>
         </div>
         
         <hr>
