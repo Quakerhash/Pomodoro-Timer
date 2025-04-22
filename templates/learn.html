@@ -1,136 +1,260 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-    div {
-        font-family: Arial, sans-serif;
-        background-color: #f0f4f8;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        flex-direction: column;
-        color: #333;
-    }
-
-    form {
-        background-color: #ffffff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        text-align: center;
-    }
-
-    label {
-        font-size: 24px;
-        font-weight: bold;
-        display: block;
-        margin-bottom: 10px;
-        color: #4CAF50;
-    }
-
-    input[type="text"] {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 15px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        font-size: 16px;
-    }
-
-    button {
-        background-color: #4CAF50;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 4px;
-        font-size: 16px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-
-    button:hover {
-        background-color: #45a049;
-    }
-
-    h3 {
-        color: #333;
-        margin-top: 20px;
-    }
-
-    .b{
-        list-style-type: none;
-        padding: 0;
-    }
-    ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        background-color: #dddddd;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Resources</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            flex-direction: column;
+            color: #333;
         }
-    li {
-        float: left;
-    }
 
-    li a {
-        display: block;
-        padding: 8px;
-    }
+        /* Navigation Bar Styles */
+        nav {
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
 
-    .a{
-        margin-bottom: 10px;
-    }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #dddddd;
+            display: flex;
+            align-items: center;
+        }
 
-    a {
-        color: #2980b9;
-        text-decoration: none;
-        transition: color 0.3s ease;
-    }
+        nav li {
+            float: left;
+            margin: 0;
+            padding: 0;
+            background: none;
+            box-shadow: none;
+        }
 
-    a:hover {
-        color: #1c5980;
-    }
-</style>
+        nav li a {
+            display: block;
+            color: #333;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        nav li a:hover {
+            background-color: #b4c7e7;
+            color: #da3c03;
+        }
+
+        nav li a img {
+            height: 30px;
+            vertical-align: middle;
+        }
+
+        /* Add margin-top to body content to account for fixed navbar */
+        .content {
+            margin-top: 60px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        label {
+            font-size: 24px;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+            color: #4c65af;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4c7faf;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        h6 {
+            align-self: right;
+            background-color: #4c7faf;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #4569a0;
+        }
+
+        .results-container {
+            margin-top: 30px;
+            width: 100%;
+            max-width: 700px;
+        }
+
+        h3 {
+            color: #333;
+            margin-top: 20px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+
+        .results-container ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .results-container li {
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 4px;
+            background-color: white;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        a {
+            color: #2980b9;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: block;
+            word-break: break-all;
+        }
+
+        a:hover {
+            color: #1c5980;
+        }
+        
+        button:hover { 
+            color: #90c0d1; 
+        }
+        
+        .net-time {
+            margin-top: 20px;
+        }
+
+        a.back-link {
+            font-size: 200%;
+            text-align: right;
+        }
+
+        a:hover {
+            text-decoration: none;
+            color: #da3c03;
+        }
+    </style>
 </head>
 <body>
-    {%load static%}
-    <ul>
-        <li><a href="{% url 'home' %}">
-            <img src="{% static 'images/image-removebg-preview (1).png' %}" alt="Logo">>
-        </a></li>
-        <li><a href="{% url 'ss' %}">Study Strategies</a></li>
-        
-      <li><a href="{% url 'learn' %}">Learn</a></li>
-        
-     <li><a href="{% url 'Timer' %}">Timer</a></li>
-     <li><a href="{% url 'about' %}">About Us</a></li>
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="index.html">
+                <img src="images/logo.png" alt="Logo">
+            </a></li>
+            <li><a href="study.html">Study Strategies</a></li>
+            <li><a href="learn.html">Learn</a></li>
+            <li><a href="timer.html">Timer</a></li>
+            <li><a href="about.html">About Us</a></li>
         </ul>
-    <div>
-    <label for="chk" aria-hidden="true">LEARN</label>
-    <form method="POST">
-        {% csrf_token %}
-        <input type="text" name="Topic" placeholder="Enter The Topic" required value="{{ request.POST.Topic }}">
-        <button type="submit">Submit</button>
-    </form>
+    </nav>
 
-    {% if website_links %}
-        <h3>Website Links</h3>
-        <ul class="b">
-            {% for link in website_links %}
-                <li class="a"><a href="{{ link }}" target="_blank">{{ link }}</a></li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+    <div class="content">
+        <label for="chk" aria-hidden="true">LEARN</label>
+        <form id="searchForm">
+            <input type="text" name="Topic" id="topicInput" placeholder="Enter The Topic" required>
+            <button type="submit">Submit</button>
+        </form>
 
-    {% if youtube_links %}
-        <h3>YouTube Video Links</h3>
-        <ul class="b">
-            {% for link in youtube_links %}
-                <li class="a "><a href="{{ link }}" target="_blank">{{ link }}</a></li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+        <div class="results-container" id="resultsContainer">
+            <!-- Results will be displayed here -->
+        </div>
     </div>
+
+    <script>
+        // Simple timer tracking functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            let startTime = new Date();
+            
+            // Track time spent on page
+            window.addEventListener('beforeunload', function() {
+                const timeSpent = Math.round((new Date() - startTime) / 1000);
+                console.log(`Time spent learning: ${timeSpent} seconds`);
+                
+                // For static GitHub Pages, we'll just log to console
+                // You could use localStorage to store this data if needed
+            });
+            
+            // Handle form submission for static site (no server-side processing)
+            document.getElementById('searchForm').addEventListener('submit', function(e) {
+                e.preventDefault(); // Prevent the form from submitting to a server
+                
+                const topic = document.getElementById('topicInput').value.trim();
+                
+                if (topic) {
+                    // For demo purposes, we'll show mock results
+                    // In a real implementation, you might use an API or pre-defined content
+                    const resultsContainer = document.getElementById('resultsContainer');
+                    
+                    // Create example results
+                    resultsContainer.innerHTML = `
+                        <h3>Website Links for "${topic}"</h3>
+                        <ul>
+                            <li><a href="https://en.wikipedia.org/wiki/${topic}" target="_blank">Wikipedia - ${topic}</a></li>
+                            <li><a href="https://www.khanacademy.org/search?page_search_query=${topic}" target="_blank">Khan Academy - ${topic}</a></li>
+                            <li><a href="https://www.britannica.com/search?query=${topic}" target="_blank">Encyclopedia Britannica - ${topic}</a></li>
+                        </ul>
+                        
+                        <h3>YouTube Video Links</h3>
+                        <ul>
+                            <li><a href="https://www.youtube.com/results?search_query=${topic}+tutorial" target="_blank">YouTube tutorials on ${topic}</a></li>
+                            <li><a href="https://www.youtube.com/results?search_query=${topic}+explained" target="_blank">${topic} explained on YouTube</a></li>
+                        </ul>
+                    `;
+                }
+            });
+        });
+    </script>
 </body>
 </html>
